@@ -10,13 +10,12 @@ app.get('/', function (req, res) {
 app.post('/login',(req,res)=>{
 	const username = req.body.username;
 	const pass = req.body.password;
-	console.log(username)
 	// mysql part start
 	const conn = mysql.createConnection({
 		host: "byu2kbzz1item0e9flzd-mysql.services.clever-cloud.com",
 		user: "uv9wztuosci7ip51",
 		password: "rrVplHn0gYp8dVgOPMYH",
-		database: "byu2kbzz1item0e9flzd" //d
+		database: "byu2kbzz1item0e9flzd"
 	});
 	conn.connect((err) => {
 		if (err) {
@@ -24,7 +23,7 @@ app.post('/login',(req,res)=>{
 		} else {
 			console.log('Connection success');
 		}
-		const sql = "INSERT INTO `data`(`Name`, `Password`) VALUES ?";
+		const sql = "INSERT INTO `form_data`(`Name`, `Password`) VALUES ?";
 		const value = [[username, pass]]
 		conn.query(sql,[value], (err) => {
 			if (err) {
@@ -38,6 +37,6 @@ app.post('/login',(req,res)=>{
 // mysql part end
 });
 app.get('/back',(req,res)=>{
-	res.sendFile(__dirname + '/index.html');
+	res.redirect('/');
 })
 app.listen(port);
